@@ -16,8 +16,8 @@ const TicketsPage = () => {
     {
       id: "early-bird",
       name: "Early Bird Pass",
-      price: "₹499",
-      features: ["Access to all tech events", "2 Workshop credits", "Event merchandise", "Digital certificate"],
+      price: "₹1299",
+      features: ["Access to all tech events", "Event merchandise", "Digital certificate"],
       available: true,
     },
     
