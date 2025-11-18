@@ -21,7 +21,7 @@ const Sponsors = () => {
     {
       tier: "Partners",
       sponsors: [
-        { name: "HOSPITALITY PARTNER", logo: "SH" },
+        { name: "HOSPITALITY PARTNER", logo: "https://s.yimg.com/zb/imgv1/b9e4c28a-0bc0-3b75-9794-8f147418f576/t_500x300" },
         { name: "HEALTH CARE PARTNER", logo: "DC" },
         { name: "PRINT MEDIA PARTNER", logo: "TM" },
         { name: "ELECTRONIC MEDIA PARTNER", logo: "CA" },
