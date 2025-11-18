@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import ThemeToggle from "./ThemeToggle";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,15 +18,15 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: "About", href: "#about" },
-    { name: "Events", href: "#events" },
-    { name: "Speakers", href: "#speakers" },
-    { name: "Schedule", href: "#schedule" },
-    { name: "Workshops", href: "#workshops" },
-    { name: "Sponsors", href: "#sponsors" },
-    { name: "Gallery", href: "#gallery" },
-    { name: "Team", href: "#team" },
-    { name: "Contact", href: "#contact" },
+    { name: "About", href: "/about" },
+    { name: "Events", href: "/events" },
+    { name: "Speakers", href: "/speakers" },
+    { name: "Schedule", href: "/schedule" },
+    { name: "Workshops", href: "/workshops" },
+    { name: "Sponsors", href: "/sponsors" },
+    { name: "Gallery", href: "/gallery" },
+    { name: "Team", href: "/team" },
+    { name: "Contact", href: "/contact" },
   ];
 
   return (
@@ -35,23 +37,25 @@ const Navbar = () => {
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
-          <a href="#" className="font-display text-2xl font-bold gradient-text">
+          <Link to="/" className="font-display text-2xl font-bold gradient-text">
             INNOFEST
-          </a>
+          </Link>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.name}
-                href={link.href}
+                to={link.href}
                 className="text-foreground hover:text-primary transition-colors font-medium"
               >
                 {link.name}
-              </a>
+              </Link>
             ))}
             <ThemeToggle />
-            <Button className="glow-primary">Register Now</Button>
+            <Button className="glow-primary" onClick={() => navigate("/tickets")}>
+              Book Tickets
+            </Button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -70,16 +74,24 @@ const Navbar = () => {
         {isMobileMenuOpen && (
           <div className="md:hidden glass-effect rounded-lg mt-2 p-4">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.name}
-                href={link.href}
+                to={link.href}
                 className="block py-3 text-foreground hover:text-primary transition-colors font-medium"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {link.name}
-              </a>
+              </Link>
             ))}
-            <Button className="w-full mt-4 glow-primary">Register Now</Button>
+            <Button 
+              className="w-full mt-4 glow-primary" 
+              onClick={() => {
+                navigate("/tickets");
+                setIsMobileMenuOpen(false);
+              }}
+            >
+              Book Tickets
+            </Button>
           </div>
         )}
       </div>

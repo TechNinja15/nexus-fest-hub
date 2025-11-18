@@ -1,18 +1,19 @@
 import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   const footerLinks = {
     "Quick Links": [
-      { name: "About", href: "#about" },
-      { name: "Events", href: "#events" },
-      { name: "Schedule", href: "#schedule" },
-      { name: "Sponsors", href: "#sponsors" },
+      { name: "About", href: "/about" },
+      { name: "Events", href: "/events" },
+      { name: "Schedule", href: "/schedule" },
+      { name: "Sponsors", href: "/sponsors" },
     ],
     "Information": [
-      { name: "FAQ", href: "#faq" },
-      { name: "Contact", href: "#contact" },
-      { name: "Register", href: "#" },
-      { name: "Team", href: "#team" },
+      { name: "FAQ", href: "/faq" },
+      { name: "Contact", href: "/contact" },
+      { name: "Book Tickets", href: "/tickets" },
+      { name: "Team", href: "/team" },
     ],
     "Policies": [
       { name: "Privacy Policy", href: "#" },
@@ -35,7 +36,9 @@ const Footer = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-8 mb-8">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <h3 className="font-display text-3xl font-bold gradient-text mb-4">INNOFEST</h3>
+            <Link to="/">
+              <h3 className="font-display text-3xl font-bold gradient-text mb-4">INNOFEST</h3>
+            </Link>
             <p className="text-muted-foreground mb-4 max-w-sm">
               India's premier tech festival bringing together innovation, technology, and creativity since 2014.
             </p>
@@ -62,12 +65,21 @@ const Footer = () => {
               <ul className="space-y-2">
                 {links.map((link) => (
                   <li key={link.name}>
-                    <a
-                      href={link.href}
-                      className="text-muted-foreground hover:text-primary transition-colors text-sm"
-                    >
-                      {link.name}
-                    </a>
+                    {link.href.startsWith("#") ? (
+                      <a
+                        href={link.href}
+                        className="text-muted-foreground hover:text-primary transition-colors text-sm"
+                      >
+                        {link.name}
+                      </a>
+                    ) : (
+                      <Link
+                        to={link.href}
+                        className="text-muted-foreground hover:text-primary transition-colors text-sm"
+                      >
+                        {link.name}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>
