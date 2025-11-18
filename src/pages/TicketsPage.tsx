@@ -20,20 +20,7 @@ const TicketsPage = () => {
       features: ["Access to all tech events", "2 Workshop credits", "Event merchandise", "Digital certificate"],
       available: true,
     },
-    {
-      id: "regular",
-      name: "Regular Pass",
-      price: "₹799",
-      features: ["Access to all tech events", "3 Workshop credits", "Event merchandise", "Digital certificate", "Lunch included"],
-      available: true,
-    },
-    {
-      id: "premium",
-      name: "Premium Pass",
-      price: "₹1499",
-      features: ["Access to all events", "Unlimited workshops", "Premium merchandise kit", "VIP seating at speaker sessions", "All meals included", "Networking dinner access"],
-      available: true,
-    },
+    
   ];
 
   const handleBooking = (e: React.FormEvent) => {
