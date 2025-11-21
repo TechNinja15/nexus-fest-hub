@@ -12,11 +12,11 @@ const Hero = () => {
   });
 
   useEffect(() => {
-    const targetDate = new Date("2025-03-15T00:00:00").getTime();
+    const startDate = new Date("2025-03-15T00:00:00").getTime();
 
     const interval = setInterval(() => {
       const now = new Date().getTime();
-      const distance = targetDate - now;
+      const distance = now - startDate; // Count forward from start date
 
       setCountdown({
         days: Math.floor(distance / (1000 * 60 * 60 * 24)),
