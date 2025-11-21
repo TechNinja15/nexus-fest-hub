@@ -16,7 +16,12 @@ const Hero = () => {
 
     const interval = setInterval(() => {
       const now = new Date().getTime();
-      const distance = now - startDate; // Count forward from start date
+      const distance = startDate - now; // Count backward to start date
+
+      if (distance < 0) {
+        setCountdown({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+        return;
+      }
 
       setCountdown({
         days: Math.floor(distance / (1000 * 60 * 60 * 24)),
