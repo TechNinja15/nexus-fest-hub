@@ -1,35 +1,12 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Ticket, Calendar, Users, CreditCard } from "lucide-react";
-import { useState } from "react";
-import { useToast } from "@/hooks/use-toast";
+import { Ticket, Calendar, Users } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const TicketsPage = () => {
-  const { toast } = useToast();
-  const [selectedTicket, setSelectedTicket] = useState<string | null>(null);
-
-  const ticketTypes = [
-    {
-      id: "early-bird",
-      name: "Early Bird Pass",
-      price: "₹1299",
-      features: ["Access to all tech events", "Event merchandise", "Digital certificate"],
-      available: true,
-    },
-    
-  ];
-
-  const handleBooking = (e: React.FormEvent) => {
-    e.preventDefault();
-    toast({
-      title: "Booking Confirmed!",
-      description: "Your ticket has been booked successfully. Check your email for details.",
-    });
-  };
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen">
@@ -42,107 +19,47 @@ const TicketsPage = () => {
               Book Your Tickets
             </h1>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Choose your pass and be part of India's premier tech festival
+              Be part of India's premier tech festival - INNOFEST 2025
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 mb-16">
-            {ticketTypes.map((ticket) => (
-              <Card 
-                key={ticket.id}
-                className={`hover:glow-primary transition-all cursor-pointer ${
-                  selectedTicket === ticket.id ? "ring-2 ring-primary" : ""
-                }`}
-                onClick={() => setSelectedTicket(ticket.id)}
+          <Card className="max-w-2xl mx-auto glass-effect mb-12">
+            <CardHeader className="text-center">
+              <div className="flex justify-center mb-4">
+                <Ticket className="text-primary" size={64} />
+              </div>
+              <CardTitle className="text-3xl gradient-text mb-2">Open Concert Pass</CardTitle>
+              <CardDescription className="text-lg">
+                Select your preferred seating section and book your seats
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="grid md:grid-cols-3 gap-6 text-center">
+                <div className="p-4 glass-effect rounded-lg">
+                  <div className="text-2xl font-bold gradient-text mb-1">VIP</div>
+                  <div className="text-sm text-muted-foreground">Premium Seating</div>
+                  <div className="text-lg font-bold mt-2">₹2,999</div>
+                </div>
+                <div className="p-4 glass-effect rounded-lg">
+                  <div className="text-2xl font-bold gradient-text mb-1">General</div>
+                  <div className="text-sm text-muted-foreground">Standard Seating</div>
+                  <div className="text-lg font-bold mt-2">₹1,299</div>
+                </div>
+                <div className="p-4 glass-effect rounded-lg">
+                  <div className="text-2xl font-bold gradient-text mb-1">1100+</div>
+                  <div className="text-sm text-muted-foreground">Total Seats</div>
+                </div>
+              </div>
+
+              <Button 
+                className="w-full glow-primary" 
+                size="lg"
+                onClick={() => navigate('/seat-selection')}
               >
-                <CardHeader>
-                  <div className="flex items-center justify-between mb-2">
-                    <Ticket className="text-primary" size={32} />
-                    <span className="text-3xl font-bold gradient-text">{ticket.price}</span>
-                  </div>
-                  <CardTitle className="text-2xl">{ticket.name}</CardTitle>
-                  <CardDescription>Perfect for tech enthusiasts</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-3">
-                    {ticket.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-start gap-2">
-                        <span className="text-primary mt-1">✓</span>
-                        <span className="text-sm text-muted-foreground">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <Button 
-                    className="w-full mt-6 glow-primary"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setSelectedTicket(ticket.id);
-                    }}
-                  >
-                    Select Pass
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
-          {selectedTicket && (
-            <Card className="max-w-2xl mx-auto glass-effect">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <CreditCard className="text-primary" />
-                  Complete Your Booking
-                </CardTitle>
-                <CardDescription>Fill in your details to book your ticket</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <form onSubmit={handleBooking} className="space-y-6">
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="firstName">First Name</Label>
-                      <Input id="firstName" required placeholder="John" />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="lastName">Last Name</Label>
-                      <Input id="lastName" required placeholder="Doe" />
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="email">Email</Label>
-                    <Input id="email" type="email" required placeholder="john@example.com" />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="phone">Phone Number</Label>
-                    <Input id="phone" type="tel" required placeholder="+91 98765 43210" />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="college">College/Organization</Label>
-                    <Input id="college" required placeholder="Your institution name" />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="tickets">Number of Tickets</Label>
-                    <Input id="tickets" type="number" min="1" max="10" defaultValue="1" />
-                  </div>
-
-                  <div className="pt-4 border-t border-border">
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="text-lg">Selected Pass:</span>
-                      <span className="text-lg font-bold gradient-text">
-                        {ticketTypes.find(t => t.id === selectedTicket)?.name}
-                      </span>
-                    </div>
-                    <Button type="submit" className="w-full glow-primary" size="lg">
-                      Proceed to Payment
-                    </Button>
-                  </div>
-                </form>
-              </CardContent>
-            </Card>
-          )}
+                Select Your Seats
+              </Button>
+            </CardContent>
+          </Card>
 
           <div className="grid md:grid-cols-3 gap-8 mt-16 max-w-4xl mx-auto">
             <div className="text-center">
