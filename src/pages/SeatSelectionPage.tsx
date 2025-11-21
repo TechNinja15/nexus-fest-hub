@@ -126,8 +126,8 @@ const SeatSelectionPage = () => {
             </DialogDescription>
           </DialogHeader>
 
-          <form onSubmit={handleBooking} className="space-y-6">
-            <div className="space-y-2">
+          <form onSubmit={handleBooking} className="space-y-6 max-h-[60vh] overflow-y-auto px-1">
+            <div className="space-y-2 sticky top-0 bg-background pb-4 z-10">
               <Label htmlFor="seats">Number of Seats</Label>
               <Input
                 id="seats"
@@ -143,28 +143,39 @@ const SeatSelectionPage = () => {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="firstName">First Name</Label>
-                <Input id="firstName" required placeholder="John" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="lastName">Last Name</Label>
-                <Input id="lastName" required placeholder="Doe" />
-              </div>
+            {/* Dynamic attendee fields based on seat count */}
+            <div className="space-y-6">
+              {Array.from({ length: seatCount }).map((_, index) => (
+                <div key={index} className="p-4 glass-effect rounded-lg space-y-4">
+                  <h3 className="font-bold text-lg gradient-text">
+                    Attendee {index + 1} {index === 0 && "(Primary)"}
+                  </h3>
+                  
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor={`firstName-${index}`}>First Name</Label>
+                      <Input id={`firstName-${index}`} required placeholder="John" />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor={`lastName-${index}`}>Last Name</Label>
+                      <Input id={`lastName-${index}`} required placeholder="Doe" />
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor={`email-${index}`}>Email</Label>
+                    <Input id={`email-${index}`} type="email" required placeholder="john@example.com" />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor={`phone-${index}`}>Phone Number</Label>
+                    <Input id={`phone-${index}`} type="tel" required placeholder="+91 98765 43210" />
+                  </div>
+                </div>
+              ))}
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
-              <Input id="email" type="email" required placeholder="john@example.com" />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="phone">Phone Number</Label>
-              <Input id="phone" type="tel" required placeholder="+91 98765 43210" />
-            </div>
-
-            <div className="pt-4 border-t border-border">
+            <div className="pt-4 border-t border-border sticky bottom-0 bg-background">
               <div className="flex items-center justify-between mb-4">
                 <span className="text-lg">Total Amount:</span>
                 <span className="text-2xl font-bold gradient-text">
